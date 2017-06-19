@@ -12,7 +12,8 @@ class RateableController extends Controller {
 	);
 	
 	public static $allowed_actions = array(
-		'rate'
+		'rate',
+		'fetch'
 	);
 
 	/**
@@ -69,4 +70,37 @@ class RateableController extends Controller {
 			'message' => _t('RateableController.THANKYOUMESSAGE', 'Thanks for rating!')
 		));
 	}
+	
+	/**
+	 * action for rating an object
+	 * @return JSON
+	 **/
+	public function fetch($request){
+		$class 	= $request->param('ObjectClassName');
+		$id 	= (int)$request->param('ObjectID');
+
+		// check we have all the params
+		if(!class_exists($class) || !$id || (!$object = $class::get()->byID($id))){
+			return Convert::raw2json(array(
+				'status' => 'error',
+				'message' => _t('RateableController.ERRORMESSAGE', 'Sorry, there was an error fetching this item')
+			));
+		}
+
+		// check the object exists
+		if(!$object && !$object->checkRatingsEnabled()){
+			return Convert::raw2json(array(
+				'status' => 'error',
+				'message' => _t('RateableController.ERRORNOTFOUNT', 'Sorry, the item you are trying to rate could not be found')
+			));
+		}
+		
+		// success
+		return Convert::raw2json(array(
+			'status' => 'success',
+			'averagescore' => $object->getAverageScore(),
+			'numratings' => $object->getNumberOfRatings()
+		));		
+	}
+	
 }
