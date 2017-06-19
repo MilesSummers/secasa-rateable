@@ -1,9 +1,9 @@
 {
-	"name": "milessummers/silverstripe-rateable",
+	"name": "milessummers/secasa-rateable",
 	"description": "An extension that adds a star rating system + UI to any DataObject type.",
 	"type": "silverstripe-module",
 	"keywords": ["silverstripe", "rating"],
-	"homepage": "http://github.com/MilesSummers/silverstripe-rateable",
+	"homepage": "http://github.com/MilesSummers/secasa-rateable",
 	"authors": [
 		{
 		"name": "Shea Dawson",
