@@ -151,4 +151,8 @@ class Rateable extends DataExtension {
 	public function RatePath(){
 		return Controller::join_links(RateableController::URLSegment, 'rate', $this->owner->ClassName, $this->owner->ID);
 	}
+	
+	public function FetchPath() {
+		return Controller::join_links(RateableController::URLSegment, 'fetch', $this->owner->ClassName, $this->owner->ID);		
+	}
 }
